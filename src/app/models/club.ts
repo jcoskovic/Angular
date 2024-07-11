@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 export class Club{
     private _id?: number;
     public get id():number | undefined{
@@ -15,9 +17,19 @@ export class Club{
         this._name = value;
     }
 
+    private _supervisor?: User;
+    public get supervisor():User | undefined{
+        return this._supervisor;
+    }
+    public set supervisor(value: User | undefined ){
+        this._supervisor = value;
+    }
+
+
     constructor(data?:{
         id?:number,
         name?:string,
+        supervisor?:User,
     } | Club){
         if(data){
             if(data.id){
@@ -25,6 +37,9 @@ export class Club{
             }
             if(data.name){
                 this.name = data.name;
+            }
+            if(data.supervisor){
+                this.supervisor = data.supervisor;
             }
         }
     }
