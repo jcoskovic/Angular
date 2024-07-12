@@ -3,12 +3,17 @@ import { ClubsService } from '../clubs.service';
 import { Club } from '../../models/club';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { ClubFormComponent } from '../club-form/club-form.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-clubs-table',
   standalone: true,
   imports: [
     MatTableModule,
+    MatIconModule,
+    MatButtonModule,
     MatIconModule,
   ],
   templateUrl: './clubs-table.component.html',
@@ -23,6 +28,7 @@ export class ClubsTableComponent implements OnInit {
 
     constructor (
       public clubsService: ClubsService,
+      public dialog: MatDialog,
     ){}
 
     ngOnInit(): void {
@@ -60,5 +66,17 @@ export class ClubsTableComponent implements OnInit {
           console.error('Club ID is undefined.');
         }
       }
+    }
+
+
+    addNewClub() {
+      const dialogRef = this.dialog.open(ClubFormComponent, {
+        width: '400px'
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        this.loadClubs(); // Reload clubs after closing the dialog
+      });
     }
 }

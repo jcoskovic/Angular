@@ -1,0 +1,21 @@
+<div class = "form-container">
+<form  #clubForm = "ngForm">
+    <mat-form-field>
+      <mat-label>Club Name</mat-label>
+      <input matInput name="name" [(ngModel)]="club.name" required>
+    </mat-form-field>
+  
+    <mat-form-field>
+        <mat-label>Select Supervisor</mat-label>
+        <mat-select name="clubsupervisor" [compareWith]="compareModels" [(ngModel)]="club.supervisor" >
+          @for( supervisor of supervisors; track supervisor)
+          {<mat-option  [value]="supervisor">
+            {{ supervisor.name }}
+          </mat-option>}
+        </mat-select>
+      </mat-form-field>
+  
+    <button mat-raised-button color="primary" (click)="onSubmit()" type="submit" [disabled]="isLoading || !clubForm.valid">Submit</button>
+    <button mat-raised-button color="warn" type="button" (click)="onCancel()">Cancel</button>
+  </form>
+</div>
