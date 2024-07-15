@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, viewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ClubsService } from '../clubs.service';
 import { UserService } from '../../users/service/user.service';
-import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { User } from '../../models/user';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,7 +26,6 @@ import { FormsModule } from '@angular/forms';
     MatIconModule,
     MatButtonModule,
     MatIconModule,
-    ClubFormComponent,
     MatFormField,
     MatSelectModule,
     MatOptionModule,
@@ -70,7 +69,6 @@ export class ClubFormComponent implements OnInit {
     this.userService.getUsers().subscribe({
       next: (data) => {
         this.supervisors = data.users;
-        console.log('Supervisors:', this.supervisors);
       },
       error: (error) => {
         console.error('Error fetching supervisors:', error);
@@ -79,10 +77,7 @@ export class ClubFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.clubForm);
     if (this.clubForm.valid) {
-      console.log("NNNNNNn");
-
       this.isLoading = true;
       this.clubsService.storeClub(this.club).subscribe({
         next: () => {
