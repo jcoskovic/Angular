@@ -29,7 +29,6 @@ export class UsersTableComponent implements OnInit {
     this.userService.getUsers().subscribe({
       next: (data) => {
         this.users = data.users;
-        console.log(this.users); 
         this.dataSource = new MatTableDataSource(data.users); 
       },
       error: (error) => {
