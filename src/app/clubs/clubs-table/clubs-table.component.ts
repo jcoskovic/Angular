@@ -39,7 +39,6 @@ export class ClubsTableComponent implements OnInit {
       this.clubsService.getClubs().subscribe({
         next: (data) => {
           this.clubs = data.clubs;
-          console.log('Loaded clubs:', this.clubs);
           this.dataSource = new MatTableDataSource(data.clubs);
         },
         error: (error) => {
@@ -49,13 +48,11 @@ export class ClubsTableComponent implements OnInit {
     }
   
     deleteClub(club: Club): void {
-      console.log('Attempting to delete club:', club);
+      
       if (confirm(`Are you sure you want to delete club ${club.name}?`)) {
-        if (club.id !== undefined) {
-          console.log(`Deleting club with id: ${club.id}`);
+        if (club.id !== undefined) {      
           this.clubsService.deleteClub(club.id).subscribe({
             next: () => {
-              console.log(`Club with id ${club.id} deleted successfully`);
               this.loadClubs();
             },
             error: (error) => {
@@ -75,8 +72,7 @@ export class ClubsTableComponent implements OnInit {
       });
   
       dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-        this.loadClubs(); // Reload clubs after closing the dialog
+        this.loadClubs(); 
       });
     }
 }

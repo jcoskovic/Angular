@@ -70,7 +70,6 @@ export class ClubFormComponent implements OnInit {
     this.userService.getUsers().subscribe({
       next: (data) => {
         this.supervisors = data.users;
-        console.log('Supervisors:', this.supervisors);
       },
       error: (error) => {
         console.error('Error fetching supervisors:', error);
@@ -79,9 +78,9 @@ export class ClubFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.clubForm);
+    
     if (this.clubForm.valid) {
-      console.log("NNNNNNn");
+      
 
       this.isLoading = true;
       this.clubsService.storeClub(this.club).subscribe({
