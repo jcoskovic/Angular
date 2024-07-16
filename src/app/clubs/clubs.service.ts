@@ -34,6 +34,23 @@ storeClub(club: Club): Observable<any> {
   return this.http.post('clubs', data);
 }
 
+updateClub(club: Club): Observable<any> {
+  let data = { name: club.name, supervisor_id: club.supervisor?.id };
+  return this.http.put(`clubs/${club.id}`, data);
+}
+
+getClub(id: number): Observable<any> {
+  return this.http.get(`clubs/${id}`).pipe(
+    map((result: { data: any }) => {
+      let club = new Club(result.data);
+      return {
+        club: club,
+      };
+    })
+  );
+}
+
+
 getSupervisors() {
   return this.http.get('supervisors').pipe(
     map((result: { data: any[] }) => {

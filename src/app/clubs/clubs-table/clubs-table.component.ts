@@ -6,20 +6,24 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { ClubFormComponent } from '../club-form/club-form.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatMenuTrigger } from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-clubs-table',
   standalone: true,
   imports: [
     MatTableModule,
-    MatIconModule,
     MatButtonModule,
     MatIconModule,
+    MatMenuTrigger,
+    MatMenuModule,
   ],
   templateUrl: './clubs-table.component.html',
   styleUrl: './clubs-table.component.scss'
 })
 export class ClubsTableComponent implements OnInit {
+
     clubs?: Club[];
     dataSource!: MatTableDataSource<Club>;
 
@@ -71,7 +75,18 @@ export class ClubsTableComponent implements OnInit {
       });
   
       dialogRef.afterClosed().subscribe(result => {
-        this.loadClubs(); // Reload clubs after closing the dialog
+        this.loadClubs(); 
+      });
+    }
+
+    editClub(club: Club) {
+      const dialogRef = this.dialog.open(ClubFormComponent, {
+        width: '400px',
+        data: { club: club }
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        this.loadClubs();
       });
     }
 }
